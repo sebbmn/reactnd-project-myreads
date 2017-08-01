@@ -1,10 +1,10 @@
 import React from 'react'
 // eslint-disable-next-line
 import * as BooksAPI from './BooksAPI'
+import { Route } from 'react-router-dom'
 import './App.css'
-import Book from './Book'
+import MyReads from './MyReads'
 import SearchBooks from './SearchBooks'
-import BookShelf from './BookShelf'
 
 class BooksApp extends React.Component {
     state = {
@@ -19,25 +19,12 @@ class BooksApp extends React.Component {
     render() {
         return (
             <div className="app">
-                {this.state.showSearchPage ? (
+                <Route exact path='/SearchBooks' render={() => (
                     <SearchBooks />
-                ) : (
-                    <div className="list-books">
-						<div className="list-books-title">
-							<h1>MyReads</h1>
-						</div>
-						<div className="list-books-content">
-							<div>
-								<BookShelf title="Currently reading" />
-								<BookShelf title="Want to Read" />
-								<BookShelf title="Read" />
-							</div>
-						</div>
-						<div className="open-search">
-							<a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
-						</div>
-                    </div>
-                )}
+                )}/>
+                <Route exact path='/' render={() => (
+                    <MyReads />
+                )}/>
             </div>
         )
     }
