@@ -12,9 +12,9 @@ class MyReads extends Component {
             </div>
             <div className="list-books-content">
                 <div>
-                    <BookShelf title="Currently reading" />
-                    <BookShelf title="Want to Read" />
-                    <BookShelf title="Read" />
+                    <BookShelf title="Currently reading" books={[]}/>
+                    <BookShelf title="Want to Read" books={[]}/>
+                    <BookShelf title="Read" books={[]}/>
                 </div>
             </div>
             <div className="open-search">

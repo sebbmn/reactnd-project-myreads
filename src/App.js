@@ -8,14 +8,16 @@ import SearchBooks from './SearchBooks'
 
 class BooksApp extends React.Component {
     state = {
-        currentlyReadingShelf: [],
-        wantToReadShelf: [],
-        readShelf: [1,2,3],
+        shelves : {
+            currentlyReadingShelf: [],
+            wantToReadShelf: [],
+            readShelf: [],
+        },
         books: [],
         test: 'test'
     }
     bookSearch(query) {
-        if(query){
+        if(query !== ''){
             BooksAPI.search(query, 10).then((books) => {
                 this.setState({books})
             })
@@ -24,9 +26,9 @@ class BooksApp extends React.Component {
         }  
     }
     componentDidMount() {
-        BooksAPI.getAll().then((books) => {
-            this.setState({books})
-        })  
+        // BooksAPI.getAll().then((books) => {
+        //    this.setState({books})
+        // })  
     }
     render() {
         return (

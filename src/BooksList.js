@@ -1,18 +1,21 @@
 import React, { Component } from 'react'
-// import { Link } from 'react-router-dom'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import Book from './Book'
 
 class BooksList extends Component {
+    static propTypes = {
+        books: PropTypes.array.isRequired,
+    }
     render() {
+        const { books } = this.props
         return (
             <ol className="books-grid">
-                <li>
-                    <Book/>
-                </li>
-                <li>
-                    <Book/>
-                </li>
+                {books && books.map((book) =>(
+                        <li key={book.id}>
+                            <Book book={book}/>
+                        </li>
+                    )
+                )}
             </ol>
         )
     }

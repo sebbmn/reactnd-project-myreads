@@ -5,7 +5,7 @@ import BooksList from './BooksList'
 
 class SearchBooks extends Component {
     static propTypes = {
-        // booksList: PropTypes.array.isRequired,
+        books: PropTypes.array.isRequired,
         onUpdateQuery: PropTypes.func.isRequired
     }
     state = {
@@ -42,11 +42,7 @@ class SearchBooks extends Component {
                     </div>
                 </div>
                 <div className="search-books-results">
-                    {books.map((book) =>(
-                            <div key={book.id}>{book.title}</div>
-                        )
-                    )}
-                    <BooksList/>
+                    <BooksList books={books}/>
                 </div>
             </div>
         )
