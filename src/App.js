@@ -8,41 +8,51 @@ import SearchBooks from './SearchBooks'
 
 class BooksApp extends React.Component {
     state = {
-        shelves : {
-            currentlyReadingShelf: [],
-            wantToReadShelf: [],
-            readShelf: [],
-        },
+        searchResult: [],
         books: [],
         test: 'test'
     }
     bookSearch(query) {
         if(query !== ''){
-            BooksAPI.search(query, 10).then((books) => {
-                if (!books.error){
-                    this.setState({books})
+            BooksAPI.search(query, 10).then((searchResult) => {
+                if (!searchResult.error){
+                    this.setState({searchResult})
                 }
             })
         } else {
-            this.setState({books: []})
+            this.setState({searchResult: []})
         }  
     }
     componentDidMount() {
-        // BooksAPI.getAll().then((books) => {
-        //    this.setState({books})
-        // })  
+        // console.log('did mount')
+        BooksAPI.getAll().then((books) => {
+            if(!books.error) {
+                this.setState({books})
+            }
+        })  
     }
     render() {
+        const { books } = this.state
+        let shelves = {
+            currentlyReading: [],
+            wantToRead: [],
+            read: [],
+        }
+        if(books) {
+            shelves.currentlyReading = books.filter((book) => book.shelf.match('currentlyReading'))
+            shelves.wantToRead = books.filter((book) => book.shelf.match('wantToRead'))
+            shelves.read = books.filter((book) => book.shelf.match('read'))
+        }
         return (
             <div className="app">
                 <Route exact path='/SearchBooks' render={() => (
                     <SearchBooks 
                         onUpdateQuery={(query) => this.bookSearch(query)}
-                        books={this.state.books}
+                        books={this.state.searchResult}
                     />
                 )}/>
                 <Route exact path='/' render={() => (
-                    <MyReads />
+                    <MyReads shelves={shelves}/>
                 )}/>
             </div>
         )
