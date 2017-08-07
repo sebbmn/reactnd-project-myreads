@@ -12,7 +12,7 @@ class BooksApp extends React.Component {
     }
     bookSearch(query) {
         if(query !== ''){
-            BooksAPI.search(query, 10).then((searchResult) => {
+            BooksAPI.search(query, 20).then((searchResult) => {
                 if (!searchResult.error){
                     this.setState({searchResult})
                 }
@@ -29,7 +29,6 @@ class BooksApp extends React.Component {
         })))
     }
     componentDidMount() {
-        // console.log('did mount')
         BooksAPI.getAll().then((books) => {
             if(!books.error) {
                 this.setState({books})
