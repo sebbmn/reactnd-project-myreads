@@ -6,7 +6,8 @@ import BooksList from './BooksList'
 class SearchBooks extends Component {
     static propTypes = {
         books: PropTypes.array.isRequired,
-        onUpdateQuery: PropTypes.func.isRequired
+        onUpdateQuery: PropTypes.func.isRequired,
+        changeShelf: PropTypes.func.isRequired
     }
     state = {
         query: ''
@@ -21,7 +22,7 @@ class SearchBooks extends Component {
         this.setState({ query: '' })
     }
     render() {
-        const { books } = this.props
+        const { books, changeShelf } = this.props
         const { query } = this.state
         // console.log(books)
         return (
@@ -42,7 +43,10 @@ class SearchBooks extends Component {
                     </div>
                 </div>
                 <div className="search-books-results">
-                    <BooksList books={books}/>
+                    <BooksList 
+                        books={books}
+                        changeShelf={changeShelf}
+                    />
                 </div>
             </div>
         )

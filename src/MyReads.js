@@ -6,9 +6,10 @@ import BookShelf from './BookShelf'
 class MyReads extends Component {
     static propTypes = {
         shelves: PropTypes.object.isRequired,
+        changeShelf: PropTypes.func.isRequired
     }
     render() {
-        const { shelves } = this.props
+        const { shelves, changeShelf } = this.props
         return (
             <div className="list-books">
                 <div className="list-books-title">
@@ -16,9 +17,21 @@ class MyReads extends Component {
                 </div>
                 <div className="list-books-content">
                     <div>
-                        <BookShelf title="Currently reading" books={shelves.currentlyReading}/>
-                        <BookShelf title="Want to Read" books={shelves.wantToRead}/>
-                        <BookShelf title="Read" books={shelves.read}/>
+                        <BookShelf 
+                            title="Currently reading" 
+                            books={shelves.currentlyReading}
+                            changeShelf={changeShelf}
+                        />
+                        <BookShelf 
+                            title="Want to Read" 
+                            books={shelves.wantToRead}
+                            changeShelf={changeShelf}
+                        />
+                        <BookShelf 
+                            title="Read" 
+                            books={shelves.read}
+                            changeShelf={changeShelf}
+                        />
                     </div>
                 </div>
                 <div className="open-search">

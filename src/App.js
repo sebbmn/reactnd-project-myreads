@@ -1,5 +1,4 @@
 import React from 'react'
-// eslint-disable-next-line
 import * as BooksAPI from './BooksAPI'
 import { Route } from 'react-router-dom'
 import './App.css'
@@ -9,8 +8,7 @@ import SearchBooks from './SearchBooks'
 class BooksApp extends React.Component {
     state = {
         searchResult: [],
-        books: [],
-        test: 'test'
+        books: []
     }
     bookSearch(query) {
         if(query !== ''){
@@ -23,6 +21,13 @@ class BooksApp extends React.Component {
             this.setState({searchResult: []})
         }  
     }
+    changeShelf = (book, shelf) => {
+        book.shelf = shelf
+        BooksAPI.update(book, shelf).then(
+            this.setState((state) => ({
+                books: state.books.filter((b) => b.id !== book.id).concat([book])
+        })))
+    }
     componentDidMount() {
         // console.log('did mount')
         BooksAPI.getAll().then((books) => {
@@ -31,6 +36,7 @@ class BooksApp extends React.Component {
             }
         })  
     }
+
     render() {
         const { books } = this.state
         let shelves = {
@@ -49,10 +55,14 @@ class BooksApp extends React.Component {
                     <SearchBooks 
                         onUpdateQuery={(query) => this.bookSearch(query)}
                         books={this.state.searchResult}
+                        changeShelf={this.changeShelf}
                     />
                 )}/>
                 <Route exact path='/' render={() => (
-                    <MyReads shelves={shelves}/>
+                    <MyReads 
+                        shelves={shelves}
+                        changeShelf={this.changeShelf}
+                    />
                 )}/>
             </div>
         )
