@@ -14,6 +14,18 @@ class BooksApp extends React.Component {
         if(query !== ''){
             BooksAPI.search(query, 20).then((searchResult) => {
                 if (!searchResult.error){
+                    // Check if some books are already on the shelves
+                    searchResult.map(book => {
+                        book.shelf = ''
+                        this.state.books.forEach(function(element) {
+                            if(element.id.match(book.id)) {
+                                if(!book.shelf.match('none')) {
+                                    book.shelf = element.shelf
+                                }
+                            } 
+                        }, this);
+                        return book
+                    })
                     this.setState({searchResult})
                 }
             })
