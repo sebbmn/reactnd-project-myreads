@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Book from './Book'
+import keyIndex from 'react-key-index'
 
 class BooksList extends Component {
     static propTypes = {
@@ -9,9 +10,10 @@ class BooksList extends Component {
     }
     render() {
         const { books, changeShelf } = this.props
+        let indexedBooks = keyIndex(books, 1)
         return (
             <ol className="books-grid">
-                {books && books.map((book) =>(
+                {books && indexedBooks.map((book) =>(
                         <li key={book.id}>
                             <Book 
                                 book={book}

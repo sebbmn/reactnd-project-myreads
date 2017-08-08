@@ -164,8 +164,14 @@ body, .app {
 /* book cover */
 
 .book-cover {
+  width: 128;
+  height: 193;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   background: #eee;
+}
+.book-cover img {
+  width: 100%;
+  height: 100%;
 }
 .book-cover-title {
   padding: 20px 10px 0;

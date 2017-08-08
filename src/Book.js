@@ -8,7 +8,7 @@ class Books extends Component {
     }
     render() {
         const { book, changeShelf } = this.props
-        //console.log(book.shelf)
+
         return (
             <div>
                 <div className="book">
